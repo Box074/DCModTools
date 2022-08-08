@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "GenColorMap": {
+      "commandName": "Project",
+      "commandLineArgs": "king_whiteKing_s.png",
+      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\WhiteKing"
+    }
+  }
+}

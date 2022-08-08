@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AtlasPatcher": {
+      "commandName": "Project",
+      "commandLineArgs": "whiteking.atlas \"J:\\DCAtlas\\king\"",
+      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\WhiteKing\\In"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "AtlasConverter": {
+      "commandName": "Project",
+      "commandLineArgs": "beheadedModHelper.yml",
+      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\skin3",
+      "remoteDebugEnabled": false,
+      "authenticationMode": "None",
+      "nativeDebugging": true
+    }
+  }
+}
