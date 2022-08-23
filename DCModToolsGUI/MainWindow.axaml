@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DCModToolsGUI.MainWindow"
+        Title="DCModToolsGUI">
+  <Grid Background="#3f3f3f">
+    <Menu Height="21" VerticalAlignment="Top" Background="#f0f0f0">
+      <MenuItem Header="File">
+        <MenuItem Header="New Project" Name="newProject"></MenuItem>
+        <MenuItem Header="Open Project" Name="openPAK"></MenuItem>
+        <MenuItem Header="Save Project" Name="savePAK" IsEnabled="False"></MenuItem>
+        <MenuItem Header="Exports" Name="menuExports" IsEnabled="False">
+          <MenuItem Header="Diff PAK" Name="exportDiffPAK"></MenuItem>
+          <MenuItem Header="Full PAK" Name="exportFullPAK"></MenuItem>
+        </MenuItem>
+      </MenuItem>
+    </Menu>
+    <Grid Margin="0, 21, 0, 0">
+      <TabControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch"
+                  VerticalContentAlignment="Top" BorderBrush="#00000000" 
+                  Background="Gray" SelectedIndex="0" Name="tabMainControl" IsEnabled="True">
+        <TabItem Name="tabModInfo" Header="Mod Info">
+          <Grid Background="WhiteSmoke" Margin="21, 21, 21, 21">
+            <ScrollViewer>
+              <StackPanel>
+                <Grid Margin="8, 21, 8, 0">
+                  <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">Mod Name:</Label>
+                  <TextBox Height="21" Background="White" Margin="100, 0,0,0" Name="textModName">Mod Name</TextBox>
+                </Grid>
+                <Grid Margin="8, 21, 8, 21">
+                  <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">Category:</Label>
+                  <ComboBox Background="White" Margin="100, 0,0,0" Name="textCategory" 
+                            SelectedIndex="0">
+                    <ComboBoxItem>Gameplay</ComboBoxItem>
+                    <ComboBoxItem>Language</ComboBoxItem>
+                    <ComboBoxItem>Cosmetic</ComboBoxItem>
+                    <ComboBoxItem>Test</ComboBoxItem>
+                  </ComboBox>
+                </Grid>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+        </TabItem>
+        <TabItem Name="tabAtlas" Header="Atlas">
+          <StackPanel Background="White" Margin="21, 21, 21, 21">
+            <Grid Height="32" Margin="0,0,0,0">
+              <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="60">Search: </Label>
+              <TextBox Margin="60, 0, 140, 0" VerticalAlignment="Center" Name="textAtlasSearch"></TextBox>
+              <CheckBox Name="checkAtlasOnlyModified" HorizontalAlignment="Right" Margin="0, 0, 8, 0" Width="120">Only Modified</CheckBox>
+              <Button Margin="0, 0, 140, 0" Content="Back" Name="atlasBack" VerticalAlignment="Top" HorizontalAlignment="Right" IsVisible="False"></Button>
+            </Grid>
+            <ScrollViewer Name="atlasViewer" Background="WhiteSmoke" Margin="8,8,8,8" Height="550" MaxHeight="550" IsVisible="False">
+              <StackPanel Name="stackPanelAtlas" Margin="0, 16, 16, 0">
+                <Label>## ATLAS LIST ##</Label>
+              </StackPanel>
+            </ScrollViewer>
+            <Grid Name="atlasTexViewer" IsVisible="True">
+              <ScrollViewer Background="WhiteSmoke" Margin="8,8,8,8" Height="550" MaxHeight="550">
+                <StackPanel Name="stackPanelAtlasTex" Margin="0, 16, 16, 0">
+                  <Label>## ATLAS TEX LIST ##</Label>
+                </StackPanel>
+              </ScrollViewer>
+            </Grid>
+          </StackPanel>
+        </TabItem>
+      </TabControl>
+    </Grid>
+  </Grid>
+</Window>

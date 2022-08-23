@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="64"
+             x:Class="DCModToolsGUI.AtlasTexListControl">
+  <Grid Name="grid">
+    <Image Width="64" Height="64" VerticalAlignment="Center" HorizontalAlignment="Left" Name="preview"></Image>
+    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72, 0, 0, 0" Name="atlasName">##NAME##</Label>
+    <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="72, 0, 0, 0" FontSize="12" Name="atlasTileCount">#TEX COUNT#</Label>
+    <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 8, 8, 0" Name="atlasModified">Modified(GreenYellow)/Original</Label>
+    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="64" Name="btnEdit">Import</Button>
+    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="64" Name="btnExport" Margin="0, 0, 64, 0">Export</Button>
+    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Red" Margin="0, 0, 128, 0" Name="btnRestore">Restore</Button>
+  </Grid>
+</UserControl>

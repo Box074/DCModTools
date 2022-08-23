@@ -2,11 +2,11 @@
   "profiles": {
     "AtlasConverter": {
       "commandName": "Project",
-      "commandLineArgs": "beheadedModHelper.yml",
-      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\skin3",
+      "commandLineArgs": "prison.atlas",
+      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\DiffRes\\atlas",
       "remoteDebugEnabled": false,
       "authenticationMode": "None",
-      "nativeDebugging": true
+      "nativeDebugging": false
     }
   }
 }

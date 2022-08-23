@@ -2,3 +2,9 @@
 
 # CA1416: 验证平台兼容性
 dotnet_diagnostic.CA1416.severity = none
+
+# IDE1006: 命名样式
+dotnet_diagnostic.IDE1006.severity = none
+
+# CA2211: 非常量字段应当不可见
+dotnet_diagnostic.CA2211.severity = none

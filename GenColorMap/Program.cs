@@ -13,8 +13,7 @@ for (int j = 0; j < rows; j++)
     {
         colorMap.SetPixel(i, green, pattle.GetPixel(i, j));
     }
-
-    colorMap.Save(Path.ChangeExtension(pattlepath, "colormap.png"));
-    colorMap.Dispose();
-    pattle.Dispose();
 }
+colorMap.Save(Path.ChangeExtension(pattlepath, "colormap.png"));
+colorMap.Dispose();
+pattle.Dispose();
