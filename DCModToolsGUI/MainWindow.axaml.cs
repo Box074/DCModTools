@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using DCTCommon.Atlas;
+using DCTCommon.PAK;
 
 namespace DCModToolsGUI
 {
@@ -50,8 +52,20 @@ namespace DCModToolsGUI
                 var stream = File.OpenRead(Path.Combine(await Config.config.GetOriginalResPath(), "Atlas", atlas.name + ".atlas"));
                 var orig = AtlasHelper.ReadAtlas(stream);
                 stream.Close();
-                Build.AtlasBuilder.CreateDiffAtlas(orig, atlas);
-                var bitmaps = new Dictionary<string, SysBitmap>();
+                var tex = await Build.AtlasBuilder.BuildFullAtlas(orig.SelectMany(x => x.Value).ToList(), atlas, atlas.name);
+                foreach(var v in tex)
+                {
+                    var ms = new MemoryStream();
+                    v.Value.Item1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    atlasDir.AddEntry(new FileData(v.Key, ms.ToArray()));
+                    ms.Close();
+                }
+                var ms1 = new MemoryStream();
+                AtlasHelper.WriteAtlas(ms1, tex.ToDictionary(x => x.Key, x => x.Value.Item2), true);
+                atlasDir.AddEntry(new FileData(atlas.name + ".atlas", ms1.ToArray()));
+                ms1.Close();
+                #region 
+                /*var bitmaps = new Dictionary<string, SysBitmap>();
                 Build.AtlasBuilder.BuildDiffAtlas(orig, bitmaps);
                 var gorp = await Config.config.GetOriginalResPath(this);
                 using(var ms = new MemoryStream())
@@ -68,7 +82,7 @@ namespace DCModToolsGUI
                     if(v.Value.Count == 0 || v.Key.StartsWith("Diff_")) continue;
                     atlasDir.AddEntry(new FileData(v.Key, File.ReadAllBytes(Path.Combine(gorp, "atlas", v.Key))));
                     var normalName = Path.GetFileNameWithoutExtension(v.Key) + "_n.png";
-                    atlasDir.AddEntry(new FileData(normalName, File.ReadAllBytes(Path.Combine(gorp, "atlas", normalName))));
+                    if(File.Exists(Path.Combine(gorp, "atlas", normalName))) atlasDir.AddEntry(new FileData(normalName, File.ReadAllBytes(Path.Combine(gorp, "atlas", normalName))));
                 }
                 foreach(var v in bitmaps)
                 {
@@ -91,7 +105,8 @@ namespace DCModToolsGUI
                     v.Value.Dispose();
                     atlasDir.AddEntry(new FileData(v.Key, ms.ToArray()));
                     ms.Close();
-                }
+                }*/
+                #endregion
             }
             using var s = File.OpenWrite(file);
             writer.Write(new(s));

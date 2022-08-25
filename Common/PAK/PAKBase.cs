@@ -1,6 +1,4 @@
-﻿
-
-namespace Common.PAK
+﻿namespace DCTCommon.PAK
 {
     public class PAKBase
     {

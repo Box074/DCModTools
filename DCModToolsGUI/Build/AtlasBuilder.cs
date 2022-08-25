@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DCTCommon.Atlas;
+using DCTCommon.Atlas.Packer;
+using DCTCommon.PAK;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -9,9 +12,74 @@ using System.Threading.Tasks;
 
 namespace DCModToolsGUI.Build
 {
-	public static class AtlasBuilder
+    public static class AtlasBuilder
 	{
-		public static void BuildDiffAtlas(Dictionary<string, List<Tile>> atlas, Dictionary<string, SysBitmap> outTex)
+		public static async Task<Dictionary<string, (SysBitmap, List<Tile>)>> BuildFullAtlas(List<Tile> tiles, DirectoryData atlasDiff, string origAtlasName)
+        {
+			var origResPath = Path.Combine(await Config.config.GetOriginalResPath(), "atlas");
+			Bin2DPacker packer = new(new(32, 32), new(4096, 4099), Bin2DPacker.Algorithm.MaxRects);
+			packer.margin = new(1, 1);
+			packer.marginType = MarginType.All;
+			int id = 0;
+			Dictionary<string, SysBitmap> tex = new();
+			foreach (var v in tiles)
+            {
+				packer.InsertElement((uint)id++, new(v.width, v.height), out _);
+				if(v.texData == null && v.bitmap == null)
+                {
+					if(!tex.TryGetValue(v.texName, out var bitmap))
+                    {
+						bitmap = (SysBitmap)SysBitmap.FromFile(Path.Combine(origResPath, v.texName));
+						tex.Add(v.texName, bitmap);
+                    }
+					v.bitmap = v.CopyBitmapFromAtlas(bitmap);
+                }
+				if(v.bitmap == null)
+                {
+					using (var ms = new MemoryStream(v.texData!))
+						v.bitmap = (SysBitmap)SysBitmap.FromStream(ms);
+                }
+            }
+			foreach(var v in atlasDiff.files)
+            {
+                using (var ms = new MemoryStream(v.data))
+                {
+                    var bitmap = (SysBitmap)SysBitmap.FromStream(ms);
+                    var tile = TrimTile(bitmap);
+                    string[] vs = v.name.Trim().Split(' ');
+                    tile.name = vs[0];
+                    string s = vs.Last().Trim();
+                    tile.index = int.Parse(s);
+                    packer.InsertElement((uint)tiles.Count, new(tile.width, tile.height), out _);
+                    tiles.Add(tile);
+                }
+            }
+			var result = new Dictionary<string, (SysBitmap, List<Tile>)>();
+			id = 0;
+			foreach (var v in packer.bins)
+            {
+				SysBitmap bitmap = new(v.size.Width, v.size.Height, PixelFormat.Format32bppArgb);
+				var tileTable = new List<Tile>();
+				var texName = origAtlasName + (id++) + ".png";
+				result[texName] = (bitmap, tileTable);
+				foreach(var el in v.elements)
+                {
+					var tile = tiles[(int)el.Key];
+					tile.x = el.Value.X;
+					tile.y = el.Value.Y;
+					tile.texName = texName;
+					tile.atlasWidth = v.size.Width;
+					tile.atlasHeight = v.size.Height;
+					tile.CopyBitmapToAtlas(bitmap);
+					tile.bitmap?.Dispose();
+					tile.bitmap = null;
+					tileTable.Add(tile);
+                }
+            }
+			return result;
+        }
+        #region Diff
+        public static void BuildDiffAtlas(Dictionary<string, List<Tile>> atlas, Dictionary<string, SysBitmap> outTex)
         {
 			foreach(var v in atlas)
             {
@@ -26,11 +94,14 @@ namespace DCModToolsGUI.Build
             }
         }
 		
-		public static void CreateDiffAtlas(Dictionary<string, List<Tile>> atlas, DirectoryData atlasDiff)
+		public static void FixAtlasInfo(Dictionary<string, List<Tile>> atlas, DirectoryData atlasDiff)
 		{
-			Bin2DPacker packer = new(new(32,32), new(4096,4099), Bin2DPacker.Algorithm.Guillotine);
+			Bin2DPacker packer = new(new(32,32), new(4096,4099), Bin2DPacker.Algorithm.MaxRects);
+			packer.margin = new(1, 1);
+			packer.marginType = MarginType.All;
 			List<Tile> tiles = new();
-			foreach(var v in atlasDiff.files)
+
+            foreach (var v in atlasDiff.files)
             {
                 using var stream = new MemoryStream(v.data);
                 var bitmap = (SysBitmap)SysBitmap.FromStream(stream);
@@ -67,7 +138,8 @@ namespace DCModToolsGUI.Build
                 }
             }
 		}
-		public static Tile TrimTile(SysBitmap bitmap)
+        #endregion
+        public static Tile TrimTile(SysBitmap bitmap)
 		{
 			Tile _tile = new();
 			_tile.bitmap = bitmap;

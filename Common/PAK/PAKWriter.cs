@@ -1,4 +1,4 @@
-﻿namespace Common.PAK
+﻿namespace DCTCommon.PAK
 {
     public class PAKWriter : PAKBase
     {
@@ -87,7 +87,7 @@
         private void FixFileInfo(DirectoryData _pakDirectory)
         {
             headerSize++;
-            headerSize += ((_pakDirectory.parent == null) ? 0 : _pakDirectory.name.Length);
+            headerSize += _pakDirectory.parent == null ? 0 : _pakDirectory.name.Length;
             headerSize++;
             headerSize += 4;
             foreach (DirectoryData directoryInfo in _pakDirectory.directories)

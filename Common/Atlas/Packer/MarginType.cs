@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Packer
+namespace DCTCommon.Atlas.Packer
 {
-	public enum MarginType
-	{
-		None,
-		OnlyBorder,
-		NoBorder,
-		All
-	}
+    public enum MarginType
+    {
+        None,
+        OnlyBorder,
+        NoBorder,
+        All
+    }
 }

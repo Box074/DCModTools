@@ -1,5 +1,7 @@
 ﻿
 
+using DCTCommon.Atlas;
+
 namespace DCModToolsGUI
 {
     partial class MainWindow : Window

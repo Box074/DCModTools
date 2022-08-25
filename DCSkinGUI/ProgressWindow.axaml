@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="100"
+        Width="300" Height="100"
+        x:Class="DCSkinGUI.ProgressWindow"
+        Title="ProgressWindow"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        >
+  <Grid>
+    <Label Name="processingName" VerticalAlignment="Top" Margin="16" Content="{Binding msg}"></Label>
+    <ProgressBar Name="progressBar" VerticalAlignment="Bottom" Height="32" Margin="8" Value="{Binding progress}"></ProgressBar>
+  </Grid>
+</Window>

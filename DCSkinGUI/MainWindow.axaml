@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DCSkinGUI"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+        Width="800" Height="800"
+        x:Class="DCSkinGUI.MainWindow"
+        Title="Dead Cells Skin GUI">
+  <Grid Background="#3f3f3f">
+    <Menu Height="21" VerticalAlignment="Top" Background="#f0f0f0">
+      <MenuItem Header="File">
+        <MenuItem Header="New Project" Name="newProject"></MenuItem>
+        <MenuItem Header="Open Project" Name="openProject"></MenuItem>
+        <MenuItem Header="Export Skin Atlas" Name="exportSkinAtlas"></MenuItem>
+      </MenuItem>
+    </Menu>
+    <Grid Margin="8, 24, 8, 8" Background="WhiteSmoke" VerticalAlignment="Top" IsEnabled="False" Height="480" Name="gridMaskTop">
+      <Grid VerticalAlignment="Top" Margin="4, 40, 4, 4" Height="436">
+        
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="256" Height="436" Background="Gray" Margin="0, 8, 4, 0">
+          <AutoCompleteBox Name="textSearchClipNames" Height="24" Background="White"></AutoCompleteBox>
+          <CheckBox Name="checkOnlyModified" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4, 24, 0, 0" Width="100" FontSize="11" Height="24">Only Modified</CheckBox>
+          <CheckBox Name="checkOnlyOriginal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="134, 24, 0, 0" Width="100" FontSize="11" Height="24">Only Original</CheckBox>
+          <ListBox VerticalAlignment="Top" HorizontalAlignment="Left" Name="clipNames" SelectionMode="Single,AlwaysSelected" Width="256"
+                   Background="WhiteSmoke"
+                   Margin="0, 48, 0, 0">
+            <ListBox.ItemTemplate>
+              <DataTemplate DataType="local:ClipInfo">
+                <Label Content="{Binding Name}" Height="48" Width="256" Background="{Binding Background}"></Label>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </Grid>
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="264, 16, 0, 0" Width="500" Height="422" Background="DarkGray">
+          <ListBox Name="animFramePanel" HorizontalAlignment="Right" 
+                   VerticalAlignment="Top" Margin="264, 8, 0, 0" 
+                   Width="500" Height="422" Background="DarkGray"
+                   SelectionMode="Single,AlwaysSelected">
+            <ListBox.ItemTemplate>
+              <DataTemplate DataType="local:IFrameInfo">
+                <Grid Height="48" Background="{Binding Background}">
+                  <Image Source="{Binding Preview}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72" Height="72"></Image>
+                  <Label Content="{Binding Name}" HorizontalAlignment="Left" Margin="80, 0,0 0" VerticalAlignment="Center"></Label>
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </Grid>
+      </Grid>
+      
+    </Grid>
+    <Grid VerticalAlignment="Bottom" Margin="4, 256, 4, 4" HorizontalAlignment="Left"  Background="Gray" Height="280" Width="788" IsEnabled="False" Name="gridMaskbottom">
+      <Image Source="avares://Markdown.Avalonia/Assets/ImageNotFound.bmp" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="150" Margin="8" Name="skinPreview"></Image>
+      <Image Source="avares://Markdown.Avalonia/Assets/ImageNotFound.bmp" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="150" Margin="300, 8,8,8" Name="normalPreview"></Image>
+      <Button HotKey="Space" Content="Play/Pause Clip" VerticalAlignment="Top" Margin="180, 16, 0, 0" Height="32" Name="btnPlayClip"></Button>
+      <Button Content="Stop Clip" Margin="180, 52, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Name="btnStopClip" Height="32"></Button>
+      <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150, 88, 0, 0" Width="100">
+        <Label HorizontalContentAlignment="Left" Width="55" VerticalAlignment="Center" Margin="0">FPS:</Label>
+        <TextBox Text="24" HorizontalAlignment="Left" Name="textFPS" Margin="60,0,0,0" VerticalAlignment="Center"></TextBox>
+      </Grid>
+
+      <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 8, 16, 0">
+        <Button Content="Open in Explorer" Name="btnOpenExporer"></Button>
+        <Button Content="Open ..." Name="btnOpenSth"></Button>
+        <Button Content="Replace" Name="btnReplace"></Button>
+        <Button Content="Append Frame" Name="btnAppendFrame"></Button>
+      </StackPanel>
+      
+    </Grid>
+  </Grid>
+</Window>

@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DCTCommon.Atlas;
+using DCTCommon.PAK;
 
 namespace DCModToolsGUI
 {

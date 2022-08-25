@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DCTCommon.Atlas;
 
 namespace DCModToolsGUI
 {
@@ -93,6 +94,7 @@ namespace DCModToolsGUI
                             preview = img,
                             tile = tile
                         };
+                        tile.texData = stream.ToArray();
                         _ = new AtlasTexListControl(info);
                         atlas.texInfo.Add(info);
                     }

@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
-using Common.Atlas;
-
+using DCTCommon.Atlas;
 
 bool outascii = false;
 if(args[0].ToLower() == "-ascii")

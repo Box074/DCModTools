@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.CompilerServices;
-using Common.Atlas;
+using DCTCommon.Atlas;
 
 var atlas = args[0];
 var indir = args[1];

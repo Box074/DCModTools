@@ -2,8 +2,8 @@
   "profiles": {
     "AtlasConverter": {
       "commandName": "Project",
-      "commandLineArgs": "prison.atlas",
-      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\DiffRes\\atlas",
+      "commandLineArgs": "-ascii out.atlas",
+      "workingDirectory": "E:\\SteamLibrary\\steamapps\\common\\Dead Cells\\ModTools\\out-O",
       "remoteDebugEnabled": false,
       "authenticationMode": "None",
       "nativeDebugging": false
